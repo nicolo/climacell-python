@@ -1,0 +1,55 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://api.climacell.co/v3/weather/realtime?apikey=CLIMACELL_API_KEY&fields=wind_gust%2Ctemp&lat=12&lon=13&unit_system=us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0WOSw7CIBiE7zJrSihVRA7gCVy5aTASJeHRCNRFw9393dTdZOabyWwItsKMkiHk
+        RGJiqC4uMBtWG5ojS0hOcUu+Fhhc0Bk+Pj3mZytU3TnNlf5jcXn9wHwv7r3a6nOaq480t/OQQopB
+        qEGcr6M2x4le8NNB3dD7F1xlmJmXAAAA
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 18:53:12 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/1.3.0.1-enterprise-edition
+      X-CC-REGION:
+      - global
+      X-Correlation-ID:
+      - 90d8a3bc-de07-4c27-8d90-97ed02385dee
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '109'
+      X-RateLimit-Limit-day:
+      - '1000'
+      X-RateLimit-Limit-hour:
+      - '100'
+      X-RateLimit-Remaining-day:
+      - '980'
+      X-RateLimit-Remaining-hour:
+      - '92'
+    status:
+      code: 200
+      message: OK
+version: 1
