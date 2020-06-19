@@ -19,8 +19,13 @@ setup(
     url="https://github.com/judy2k/helloworld",
     author="Nicolo Giorgi",
     author_email="nicolo.giorgi@gmail.com",
-    install_requires = [],
-    extras_require = {
-        "dev": [],
+    install_requires=[
+            "requests >= 2.0",
+        ],
+    extras_require={
+        "dev": [
+            "pytest >= 5.0",
+            "vcrpy >= 4.0",
+            ],
     },
 )
