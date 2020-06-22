@@ -30,46 +30,59 @@ class ClimacellResponse:
     def __init__(self, request_response, fields):
         self.request_response = request_response
         self.fields = fields
-        self.json_data = request_response.json()
 
-    @property
-    def lat(self):
-        return self.json_data.get('lat', None)
-
-    @property
-    def lon(self):
-        return self.json_data.get('lon', None)
-
-    @property
-    def observation_time(self):
-        if self.error_code is not None:
-            return None
-
-        return dateutil.parser.parse(
-                self.json_data['observation_time']['value'])
-
-    @property
-    def measurements(self):
-        if self.error_code is not None:
-            return {}
-
-        m_dict = {}
-        for f in self.fields:
-            m_dict[f] = Measurement(
-                    value=self.json_data[f]['value'],
-                    units=self.json_data[f]['units'])
-        return m_dict
-
-    @property
-    def error_code(self):
-        return self.json_data.get('errorCode', None)
-
-    @property
-    def error_message(self):
-        return self.json_data.get('message', None)
+    def data(self):
+        raw_json = self.request_response.json()
+        if self.status_code == 200:
+            return RealtimeData(raw_json, self.fields)
+        else:
+            return ErrorData(raw_json)
 
     def __getattr__(self, attrib):
         return getattr(self.request_response, attrib)
+
+
+class ErrorData:
+
+    def __init__(self, raw_json):
+        self.raw_json = raw_json
+
+    @property
+    def error_code(self):
+        return self.raw_json['errorCode']
+
+    @property
+    def error_message(self):
+        return self.raw_json['message']
+
+
+class RealtimeData:
+
+    def __init__(self, raw_json, fields):
+        self.raw_json = raw_json
+        self.fields = fields
+
+    @property
+    def lat(self):
+        return self.raw_json.get('lat')
+
+    @property
+    def lon(self):
+        return self.raw_json.get('lon')
+
+    @property
+    def observation_time(self):
+        return dateutil.parser.parse(
+                self.raw_json['observation_time']['value'])
+
+    @property
+    def measurements(self):
+        m_dict = {}
+        for f in self.fields:
+            m_dict[f] = Measurement(
+                    value=self.raw_json[f]['value'],
+                    units=self.raw_json[f]['units'])
+        return m_dict
 
 
 class Measurement:
