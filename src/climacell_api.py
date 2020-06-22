@@ -19,6 +19,26 @@ class ClimacellApiClient:
 
         response = self._make_request(
                 url_suffix="/weather/realtime", params=params)
+        return ClimacellResponse(request_response=response, fields=fields,
+                                 response_type='realtime')
+
+    def nowcast(self, lat, lon, timestep, fields,
+                start_time='now', end_time=None, units='us'):
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "timestep": timestep,
+            "start_time": start_time,
+            "unit_system": units,
+            "fields": ",".join(fields),
+            "apikey": self.key
+        }
+
+        if end_time is not None:
+            params["end_time"] = end_time
+
+        response = self._make_request(
+                url_suffix="/weather/nowcast", params=params)
         return ClimacellResponse(request_response=response, fields=fields)
 
     def _make_request(self, url_suffix, params):
@@ -27,14 +47,21 @@ class ClimacellApiClient:
 
 class ClimacellResponse:
 
-    def __init__(self, request_response, fields):
+    def __init__(self, request_response, fields, response_type='forecast'):
         self.request_response = request_response
         self.fields = fields
+        self.response_type = response_type
 
     def data(self):
         raw_json = self.request_response.json()
-        if self.status_code == 200:
-            return RealtimeData(raw_json, self.fields)
+        if self.status_code == 200 and self.response_type == 'realtime':
+            return ObservationData(raw_json, self.fields)
+        elif self.status_code == 200:
+            observations = []
+            for o_json in raw_json:
+                observations.append(ObservationData(o_json, self.fields))
+
+            return observations
         else:
             return ErrorData(raw_json)
 
@@ -56,7 +83,7 @@ class ErrorData:
         return self.raw_json['message']
 
 
-class RealtimeData:
+class ObservationData:
 
     def __init__(self, raw_json, fields):
         self.raw_json = raw_json
@@ -80,8 +107,8 @@ class RealtimeData:
         m_dict = {}
         for f in self.fields:
             m_dict[f] = Measurement(
-                    value=self.raw_json[f]['value'],
-                    units=self.raw_json[f]['units'])
+                    value=self.raw_json[f].get('value', None),
+                    units=self.raw_json[f].get('units', None))
         return m_dict
 
 
