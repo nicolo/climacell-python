@@ -1,3 +1,4 @@
+import dateutil.parser
 import os
 import vcr
 from climacell_api import ClimacellApiClient
@@ -12,6 +13,17 @@ def test_real_time():
             lat='12', lon='13', fields=['wind_gust', 'temp'])
 
     assert response.status_code == 200
+    assert response.lat == 12
+    assert response.lon == 13
+    assert response.observation_time == dateutil.parser.parse(
+            '2020-06-09T18:53:12.746Z')
+    measurements = response.measurements
+    assert measurements['temp'].value == 102.2
+    assert measurements['temp'].units == 'F'
+    assert measurements['wind_gust'].value == 8.68
+    assert measurements['wind_gust'].units == 'mph'
+    assert response.error_code is None
+    assert response.error_message is None
     assert response.json() == {
             'lat': 12,
             'lon': 13,
