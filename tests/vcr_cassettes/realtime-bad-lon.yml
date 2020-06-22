@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
     method: GET
-    uri: https://api.climacell.co/v3/weather/realtime?apikey=CLIMACELL_API_KEY&fields=wind_gust&lat=12&lon=999&unit_system=us
+    uri: https://api.climacell.co/v3/weather/realtime?apikey=CLIMACELL_API_KEY&fields=wind_gust&lat=12&lon=999&unit_system=si
   response:
     body:
       string: '{"statusCode":400,"errorCode":"BadRequest","message":"lon must be in
@@ -26,23 +26,23 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 22 Jun 2020 00:51:46 GMT
+      - Mon, 22 Jun 2020 20:44:29 GMT
       Via:
       - kong/1.3.0.1-enterprise-edition
       X-CC-REGION:
       - global
       X-Correlation-ID:
-      - cf53b386-d128-4bce-aee5-55ce7edb0a94
+      - c962b3f3-9074-407c-abd8-06d5abb20c94
       X-Kong-Proxy-Latency:
-      - '6'
+      - '12'
       X-Kong-Upstream-Latency:
-      - '16'
+      - '14'
       X-RateLimit-Limit-day:
       - '1000'
       X-RateLimit-Limit-hour:
       - '100'
       X-RateLimit-Remaining-day:
-      - '993'
+      - '942'
       X-RateLimit-Remaining-hour:
       - '93'
     status:

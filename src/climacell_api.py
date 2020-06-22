@@ -8,7 +8,7 @@ class ClimacellApiClient:
     def __init__(self, key):
         self.key = key
 
-    def realtime(self, lat, lon, fields, units='us'):
+    def realtime(self, lat, lon, fields, units='si'):
         params = {
             "lat": lat,
             "lon": lon,
@@ -23,7 +23,7 @@ class ClimacellApiClient:
                                  response_type='realtime')
 
     def nowcast(self, lat, lon, timestep, fields,
-                start_time='now', end_time=None, units='us'):
+                start_time='now', end_time=None, units='si'):
         params = {
             "lat": lat,
             "lon": lon,
@@ -39,6 +39,24 @@ class ClimacellApiClient:
 
         response = self._make_request(
                 url_suffix="/weather/nowcast", params=params)
+        return ClimacellResponse(request_response=response, fields=fields)
+
+    def forecast_hourly(self, lat, lon, fields, start_time='now',
+                        end_time=None, units='si'):
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "start_time": start_time,
+            "unit_system": units,
+            "fields": ",".join(fields),
+            "apikey": self.key
+        }
+
+        if end_time is not None:
+            params["end_time"] = end_time
+
+        response = self._make_request(
+                url_suffix="/weather/forecast/hourly", params=params)
         return ClimacellResponse(request_response=response, fields=fields)
 
     def _make_request(self, url_suffix, params):

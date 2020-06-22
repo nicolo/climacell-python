@@ -11,15 +11,13 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
     method: GET
-    uri: https://api.climacell.co/v3/weather/nowcast?apikey=CLIMACELL_API_KEY&fields=wind_gust%2Cprecipitation_type&lat=40&lon=80&start_time=now&timestep=30&unit_system=us
+    uri: https://api.climacell.co/v3/weather/realtime?apikey=CLIMACELL_API_KEY&fields=wind_gust%2Ctemp&lat=12&lon=13&unit_system=us
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA72U3YrCMBBG32Wu6zD52STmOXqliNTdshuoabGpItJ3tyuy4N0yMN6V8gUOh8Ns
-        b9A1BaKlCro+QwzLxyXlr/33NC7/b3BuuqmFqAxaXcGUUxkhwnH4gbmC4dR+piGVpqQ+78t1WJZ/
-        TyD3uf1d9YexPZ2fm3R82WjStCK30rrWFK2PRKjWbgPzXP2bTeGHNJuKisUWUDlhbYqpzaFXwmia
-        ae0taLzYPBorbM0wrQW00q0ZZmsBjWhrpiZiWvMoejseZLzUHFKQTG1B4541i2vR1B5oPGsWrRe2
-        xj1rb0F7sba7A38/FkLhBwAA
+        H4sIAAAAAAAAA0XMTQ7CIBiE4bvMmhL4RLQcwBO4ctNgJErCTyO0LhruLm7qbhbPOxuCrTCSGEJO
+        fRwYqoszzIbVhsXBjJorzbAkXwsMLmgMH58e03MpPd2dFFyc/i7Or5/M9+Leq60+p6n62P/2ACRI
+        DEIPRFcSRilDI5fn4w2tfQE8FtlWmAAAAA==
     headers:
       Access-Control-Allow-Origin:
       - '*'
@@ -30,7 +28,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 22 Jun 2020 20:47:00 GMT
+      - Mon, 22 Jun 2020 20:44:29 GMT
       Transfer-Encoding:
       - chunked
       Via:
@@ -38,19 +36,19 @@ interactions:
       X-CC-REGION:
       - global
       X-Correlation-ID:
-      - 57dd4dc6-0d41-47b3-8bb7-66beed31121e
+      - b052fde1-4f53-4589-a106-69268911fe66
       X-Kong-Proxy-Latency:
-      - '1'
+      - '2'
       X-Kong-Upstream-Latency:
-      - '285'
+      - '50'
       X-RateLimit-Limit-day:
       - '1000'
       X-RateLimit-Limit-hour:
       - '100'
       X-RateLimit-Remaining-day:
-      - '939'
+      - '943'
       X-RateLimit-Remaining-hour:
-      - '90'
+      - '94'
     status:
       code: 200
       message: OK

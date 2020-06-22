@@ -11,13 +11,13 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
     method: GET
-    uri: https://api.climacell.co/v3/weather/realtime?apikey=CLIMACELL_API_KEY&fields=wind_gust%2Ctemp&lat=12&lon=13&unit_system=us
+    uri: https://api.climacell.co/v3/weather/forecast/hourly?apikey=CLIMACELL_API_KEY&end_time=2020-06-23T00%3A00%3A00%2B00%3A00&fields=wind_gust%2Cprecipitation_type&lat=40&lon=80&start_time=2020-06-22T23%3A00%3A00%2B00%3A00&unit_system=si
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0WOSw7CIBiE7zJrSihVRA7gCVy5aTASJeHRCNRFw9393dTdZOabyWwItsKMkiHk
-        RGJiqC4uMBtWG5ojS0hOcUu+Fhhc0Bk+Pj3mZytU3TnNlf5jcXn9wHwv7r3a6nOaq480t/OQQopB
-        qEGcr6M2x4le8NNB3dD7F1xlmJmXAAAA
+        H4sIAAAAAAAAA62OTQrCMBCF7zLrtA5JEck5ulKkpBpkIJ2EJqlIyd2NIqJbEd7iwfvhO6zgTALd
+        oQDnGfSumjDbEwVKJpHnId2CBb3CYlyuBtizhSLgSnweLjnW9TtUAjJTirU2beKj5cdo5+X1RNPX
+        k0SJDW4bKXupNGJVi4h7KEX8l6v7jUv1T6gPruMdLLqQcTEBAAA=
     headers:
       Access-Control-Allow-Origin:
       - '*'
@@ -28,7 +28,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 09 Jun 2020 18:53:12 GMT
+      - Mon, 22 Jun 2020 20:39:24 GMT
       Transfer-Encoding:
       - chunked
       Via:
@@ -36,19 +36,19 @@ interactions:
       X-CC-REGION:
       - global
       X-Correlation-ID:
-      - 90d8a3bc-de07-4c27-8d90-97ed02385dee
+      - 233e5ed1-dc79-487f-8304-7bca86e2dc8d
       X-Kong-Proxy-Latency:
-      - '1'
+      - '2'
       X-Kong-Upstream-Latency:
-      - '109'
+      - '195'
       X-RateLimit-Limit-day:
       - '1000'
       X-RateLimit-Limit-hour:
       - '100'
       X-RateLimit-Remaining-day:
-      - '980'
+      - '944'
       X-RateLimit-Remaining-hour:
-      - '92'
+      - '95'
     status:
       code: 200
       message: OK
