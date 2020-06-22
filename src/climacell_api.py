@@ -8,7 +8,7 @@ class ClimacellApiClient:
     def __init__(self, key):
         self.key = key
 
-    def realtime(self, lat, lon, fields, units='us'):
+    def realtime(self, lat, lon, fields, units='si'):
         params = {
             "lat": lat,
             "lon": lon,
@@ -23,7 +23,7 @@ class ClimacellApiClient:
                                  response_type='realtime')
 
     def nowcast(self, lat, lon, timestep, fields,
-                start_time='now', end_time=None, units='us'):
+                start_time='now', end_time=None, units='si'):
         params = {
             "lat": lat,
             "lon": lon,

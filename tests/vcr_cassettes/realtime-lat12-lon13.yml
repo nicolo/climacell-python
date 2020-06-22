@@ -15,9 +15,9 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0WOSw7CIBiE7zJrSihVRA7gCVy5aTASJeHRCNRFw9393dTdZOabyWwItsKMkiHk
-        RGJiqC4uMBtWG5ojS0hOcUu+Fhhc0Bk+Pj3mZytU3TnNlf5jcXn9wHwv7r3a6nOaq480t/OQQopB
-        qEGcr6M2x4le8NNB3dD7F1xlmJmXAAAA
+        H4sIAAAAAAAAA0XMTQ7CIBiE4bvMmhL4RLQcwBO4ctNgJErCTyO0LhruLm7qbhbPOxuCrTCSGEJO
+        fRwYqoszzIbVhsXBjJorzbAkXwsMLmgMH58e03MpPd2dFFyc/i7Or5/M9+Leq60+p6n62P/2ACRI
+        DEIPRFcSRilDI5fn4w2tfQE8FtlWmAAAAA==
     headers:
       Access-Control-Allow-Origin:
       - '*'
@@ -28,7 +28,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 09 Jun 2020 18:53:12 GMT
+      - Mon, 22 Jun 2020 20:44:29 GMT
       Transfer-Encoding:
       - chunked
       Via:
@@ -36,19 +36,19 @@ interactions:
       X-CC-REGION:
       - global
       X-Correlation-ID:
-      - 90d8a3bc-de07-4c27-8d90-97ed02385dee
+      - b052fde1-4f53-4589-a106-69268911fe66
       X-Kong-Proxy-Latency:
-      - '1'
+      - '2'
       X-Kong-Upstream-Latency:
-      - '109'
+      - '50'
       X-RateLimit-Limit-day:
       - '1000'
       X-RateLimit-Limit-hour:
       - '100'
       X-RateLimit-Remaining-day:
-      - '980'
+      - '943'
       X-RateLimit-Remaining-hour:
-      - '92'
+      - '94'
     status:
       code: 200
       message: OK
