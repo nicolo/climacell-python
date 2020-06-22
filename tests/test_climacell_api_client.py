@@ -103,3 +103,58 @@ def test_nowcast_with_end_time():
             'wind_gust': {'units': 'mph', 'value': 6.71},
             'precipitation_type': {'value': 'none'}
             }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/forecast-hourly-no-end-time.yml')
+def test_forecast_hourly():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    response = api_client.forecast_hourly(
+            lat='43.08', lon='-89.54', start_time='now',
+            fields=['wind_gust', 'precipitation_type'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 109
+    assert data[0].observation_time == dateutil.parser.parse(
+            '2020-06-22T20:00:00.000Z')
+    measurements = data[0].measurements
+    assert measurements['precipitation_type'].value == 'rain'
+    assert measurements['precipitation_type'].units is None
+    assert measurements['wind_gust'].value == 3.49
+    assert measurements['wind_gust'].units == 'm/s'
+    assert response.json()[0] == {
+            'lat': 43.08,
+            'lon': -89.54,
+            'observation_time': {'value': '2020-06-22T20:00:00.000Z'},
+            'wind_gust': {'units': 'm/s', 'value': 3.49},
+            'precipitation_type': {'value': 'rain'}
+            }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/forecast-hourly-with-end-time.yml')
+def test_forecast_hourly_with_end_time():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    start_time = datetime(2020, 6, 22, 23, tzinfo=timezone.utc)
+    end_time = start_time + timedelta(minutes=60)
+    response = api_client.forecast_hourly(
+            lat='40', lon='80',
+            start_time=start_time.isoformat(), end_time=end_time.isoformat(),
+            fields=['wind_gust', 'precipitation_type'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 2
+    assert data[0].observation_time == dateutil.parser.parse(
+            '2020-06-22T23:00:00.000Z')
+    measurements = data[0].measurements
+    assert measurements['precipitation_type'].value == 'none'
+    assert measurements['precipitation_type'].units is None
+    assert measurements['wind_gust'].value == 3
+    assert measurements['wind_gust'].units == 'm/s'
+    assert response.json()[0] == {
+            'lat': 40,
+            'lon': 80,
+            'observation_time': {'value': '2020-06-22T23:00:00.000Z'},
+            'wind_gust': {'units': 'm/s', 'value': 3},
+            'precipitation_type': {'value': 'none'}
+            }

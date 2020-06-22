@@ -1,0 +1,68 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://api.climacell.co/v3/weather/forecast/hourly?apikey=CLIMACELL_API_KEY&fields=wind_gust%2Cprecipitation_type&lat=43.08&lon=-89.54&start_time=now&unit_system=si
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA82b22rbUBBF/0XPzqmOrIvt7/BTSwlua4ogkY0vKSXk3zsJpTRFnYfl0UaQh0Ac
+        s5jb3ttKPj0XD4eh2Nyt1qmpF8XD7lJs6mUqV4vieNp/7Y/9ZXfpD8P95edxX2yei6fdw9W+KU67
+        fiheFsWPfvh2//16tt/788NlqteL4jr0l7O98vHD+fWFhy/n/enp95v1j+/erCqr8q5s76pqW5Wb
+        8vUrlWX5sXh5WWDC4TDs/0uI8bICr051xoSVhrDhLV5GEXpD2KaqYzVcbt8mMGQIPcImrSpMGDaH
+        HmH7dgjIIlsNJXPYJrtUEDBsDL1L06VsdxUS1lGL4hHmMmV4bazLjQQxp2qJq9iKEJsWI3YSxDJ1
+        8Ghbo1cSRGt0g6u4ViB2aYW3JUvMTZvW+OTkMF3xTk6XcJPziKz8ZVrfuVnfwXqAeE3yiKjE42HN
+        yyOKMie8ETWJx+PNHVGSeDze3BEVmRPeiIIwPM+yYs+fR9QjHg9bhLFcPCe8Ed2Ix8OrUYWphjd7
+        HC9MNSbAq0fjcHxz4Vk2vDnPnuFJZo9XTzJ78O5Z9cIci7ca0C8bXphj8fBg9jU8iWPheBLHwvHC
+        HIuXNThemGPx8OBHlPV2LOwy1fDwcPXGkm48Hsy5Vr0w1fCqh8+yJudyPIlqwKxhzZWoBrSjhhem
+        Gp6ocbww1fDweHPDVGMavDDV8PDw5mpyLj7LlSRrYDuqybkcT5I1IF4TmHM9zYWOxfDCZs/Dg37P
+        8CSOBT57Mbyw2fOqx/HCHMs0eGGOZRq8MMfi4fHVCHMsHh4/LGGOZRq8MMcyCZ4m50LH0mw1ORe6
+        ZcOTqAavnkQ1OJ5ENTieRDWw34vLud5h4XgS1eB4EtXgePNWjbicO8nsxeXcafAkqoENVSVRDbga
+        7bxzruFJci5sruFJZg9mDcOTzB6vnsSxcDyJY+F4kpzL8SSOha+GxLFwvDk7lnbez3MNT6IaMAoZ
+        nkQ1OJ5ENeBTIaueRDXghxiGJ1ENjidRDfg816onUQ34B3KGJ1ENjidRDdxcTc7leBLVwM2Ne57r
+        xXCOJ1ENiNeJci7950njkwxfhnbe+CSeJUPTYnyS8buBT+JaMnRVVj+JbbmBT+JbbuivxLjcwPeP
+        c/n8Cy3ejaLvQwAA
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 22 Jun 2020 20:37:31 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/1.3.0.1-enterprise-edition
+      X-CC-REGION:
+      - us
+      X-Correlation-ID:
+      - 0aa06e2a-4bea-4298-b8d7-4ab385317d83
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '207'
+      X-RateLimit-Limit-day:
+      - '1000'
+      X-RateLimit-Limit-hour:
+      - '100'
+      X-RateLimit-Remaining-day:
+      - '945'
+      X-RateLimit-Remaining-hour:
+      - '96'
+    status:
+      code: 200
+      message: OK
+version: 1
