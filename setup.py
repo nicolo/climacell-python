@@ -21,6 +21,7 @@ setup(
     author_email="nicolo.giorgi@gmail.com",
     install_requires=[
             "requests >= 2.0",
+            "python-dateutil >= 2.0",
         ],
     extras_require={
         "dev": [
