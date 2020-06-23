@@ -59,6 +59,25 @@ class ClimacellApiClient:
                 url_suffix="/weather/forecast/hourly", params=params)
         return ClimacellResponse(request_response=response, fields=fields)
 
+    def forecast_daily(self, lat, lon, fields, start_time='now',
+                       end_time=None, units='si'):
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "start_time": start_time,
+            "unit_system": units,
+            "fields": ",".join(fields),
+            "apikey": self.key
+        }
+
+        if end_time is not None:
+            params["end_time"] = end_time
+
+        response = self._make_request(
+                url_suffix="/weather/forecast/daily", params=params)
+        return ClimacellResponse(request_response=response, fields=fields,
+                                 response_type='daily_forecast')
+
     def _make_request(self, url_suffix, params):
         return requests.get(self.BASE_URL + url_suffix, params=params)
 
@@ -76,8 +95,12 @@ class ClimacellResponse:
             return ObservationData(raw_json, self.fields)
         elif self.status_code == 200:
             observations = []
+            if self.response_type == 'daily_forecast':
+                data_class = DailyObservationData
+            else:
+                data_class = ObservationData
             for o_json in raw_json:
-                observations.append(ObservationData(o_json, self.fields))
+                observations.append(data_class(o_json, self.fields))
 
             return observations
         else:
@@ -130,8 +153,31 @@ class ObservationData:
         return m_dict
 
 
+class DailyObservationData(ObservationData):
+
+    @property
+    def measurements(self):
+        m_dict = {}
+        for f in self.fields:
+            field_json = self.raw_json[f]
+            if isinstance(field_json, list):
+                m_dict[f] = {}
+                for min_max in field_json:
+                    key = 'max' if 'max' in min_max else 'min'
+                    value = min_max[key].get('value', None)
+                    units = min_max[key].get('units', None)
+                    time = dateutil.parser.parse(min_max['observation_time'])
+                    m_dict[f][key] = Measurement(value, units, time)
+            else:
+                m_dict[f] = Measurement(
+                    value=field_json.get('value', None),
+                    units=field_json.get('units', None))
+        return m_dict
+
+
 class Measurement:
 
-    def __init__(self, value, units):
+    def __init__(self, value, units, observation_time=None):
         self.value = value
         self.units = units
+        self.observation_time = observation_time
