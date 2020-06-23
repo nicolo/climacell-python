@@ -158,3 +158,126 @@ def test_forecast_hourly_with_end_time():
             'wind_gust': {'units': 'm/s', 'value': 3},
             'precipitation_type': {'value': 'none'}
             }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/forecast-daily-no-end-time.yml')
+def test_forecast_daily():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    response = api_client.forecast_daily(
+            lat='43.08', lon='-89.54', start_time='now', units='us',
+            fields=['temp', 'precipitation', 'sunrise'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 15
+    assert data[0].observation_time == dateutil.parser.parse('2020-06-23')
+    measurements = data[0].measurements
+    assert measurements['temp']['min'].value == 52.25
+    assert measurements['temp']['min'].units == 'F'
+    assert(measurements['temp']['min'].observation_time ==
+           dateutil.parser.parse('2020-06-23T11:00:00.000Z'))
+    assert measurements['temp']['max'].value == 69.79
+    assert measurements['temp']['max'].units == 'F'
+    assert(measurements['temp']['max'].observation_time ==
+           dateutil.parser.parse('2020-06-23T19:00:00.000Z'))
+    assert measurements['precipitation']['max'].value == 0.0271
+    assert measurements['precipitation']['max'].units == 'in/hr'
+    assert(measurements['precipitation']['max'].observation_time ==
+           dateutil.parser.parse('2020-06-23T22:00:00.000Z'))
+    assert measurements['sunrise'].value == '2020-06-23T10:19:43.504Z'
+    assert response.json()[0] == {
+            "temp": [{
+                "observation_time": "2020-06-23T11:00:00Z",
+                "min": {
+                    "value": 52.25,
+                    "units": "F"
+                }
+                },
+                {
+                "observation_time": "2020-06-23T19:00:00Z",
+                "max": {
+                    "value": 69.79,
+                    "units": "F"
+                }
+                }
+            ],
+            "precipitation": [{
+                "observation_time": "2020-06-23T22:00:00Z",
+                "max": {
+                    "value": 0.0271,
+                    "units": "in/hr"
+                }
+            }
+            ],
+            "sunrise": {
+                "value": "2020-06-23T10:19:43.504Z"
+            },
+            "observation_time": {
+                "value": "2020-06-23"
+            },
+            "lat": 43.08,
+            "lon": -89.54,
+        }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/forecast-daily-with-end-time.yml')
+def test_forecast_daily_with_end_time():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    start_time = datetime(2020, 6, 24, 12, tzinfo=timezone.utc)
+    end_time = start_time + timedelta(days=2)
+    response = api_client.forecast_daily(
+            lat='40', lon='80',
+            start_time=start_time.isoformat(), end_time=end_time.isoformat(),
+            fields=['temp', 'precipitation', 'sunrise'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 4
+    assert data[0].observation_time == dateutil.parser.parse('2020-06-23')
+    measurements = data[0].measurements
+    assert measurements['temp']['min'].value == 26.75
+    assert measurements['temp']['min'].units == 'C'
+    assert(measurements['temp']['min'].observation_time ==
+           dateutil.parser.parse('2020-06-23T23:00:00.000Z'))
+    assert measurements['temp']['max'].value == 38.25
+    assert measurements['temp']['max'].units == 'C'
+    assert(measurements['temp']['max'].observation_time ==
+           dateutil.parser.parse('2020-06-23T11:00:00.000Z'))
+    assert measurements['precipitation']['max'].value == 0
+    assert measurements['precipitation']['max'].units == 'mm/hr'
+    assert(measurements['precipitation']['max'].observation_time ==
+           dateutil.parser.parse('2020-06-23T07:00:00.000Z'))
+    assert measurements['sunrise'].value == '2020-06-22T23:13:04.950Z'
+    assert response.json()[0] == {
+            "temp": [{
+                "observation_time": "2020-06-23T23:00:00Z",
+                "min": {
+                    "value": 26.75,
+                    "units": "C"
+                }
+                },
+                {
+                "observation_time": "2020-06-23T11:00:00Z",
+                "max": {
+                    "value": 38.25,
+                    "units": "C"
+                }
+                }
+            ],
+            "precipitation": [{
+                "observation_time": "2020-06-23T07:00:00Z",
+                "max": {
+                    "value": 0,
+                    "units": "mm/hr"
+                }
+            }
+            ],
+            "sunrise": {
+                "value": "2020-06-22T23:13:04.950Z"
+            },
+            "observation_time": {
+                "value": "2020-06-23"
+            },
+            "lat": 40,
+            "lon": 80
+        }

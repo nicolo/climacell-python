@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://api.climacell.co/v3/weather/forecast/daily?apikey=CLIMACELL_API_KEY&end_time=2020-06-26T12%3A00%3A00%2B00%3A00&fields=temp%2Cprecipitation%2Csunrise&lat=40&lon=80&start_time=2020-06-24T12%3A00%3A00%2B00%3A00&unit_system=si
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA62Uy26DMBBF/2XWxDV+Ad7mF1g1iipaIdUSL4GJKiH+vQOLEgghWFTy0r7MPRz7
+        0oFN8wr0pYPys0nrW2JNWXxYk6eggVFGT1SdGI8Z15TiegcPclOA7uCWZC3uYooE0oO2MLbBM2fo
+        e+9Vmu/fpSU/d2k8JGyRdvWgqtMvUxk7TrdjWho8y6fTpHn+9l3jtJjftEVtGizz12rqzobuPtYX
+        JJLYv/dWUK2c48POLLGgBX40K5FZSAc0u4iLLeKcqHDqsYO4iGn4jAgXRMl5GhJxI475gxy4Rj9m
+        f9Sd+GgbEmc+kcyBuDhEXG4Td3RcxhuOs4cb40xc/ivx0TYkziMShNF+x+Uh4mreYf6qCCIWVr54
+        VdQWcflwY5yJL6Y96PhoGxKXSJyz/cTVKvHrL6HKc+7JBQAA
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 23 Jun 2020 13:28:18 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/1.3.0.1-enterprise-edition
+      X-CC-REGION:
+      - global
+      X-Correlation-ID:
+      - 0e81d950-3f29-4acd-a738-4c71969ded8f
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '22'
+      X-RateLimit-Limit-day:
+      - '1000'
+      X-RateLimit-Limit-hour:
+      - '100'
+      X-RateLimit-Remaining-day:
+      - '993'
+      X-RateLimit-Remaining-hour:
+      - '97'
+    status:
+      code: 200
+      message: OK
+version: 1

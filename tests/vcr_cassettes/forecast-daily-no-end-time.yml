@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://api.climacell.co/v3/weather/forecast/daily?apikey=CLIMACELL_API_KEY&fields=temp%2Cprecipitation%2Csunrise&lat=43.08&lon=-89.54&start_time=now&unit_system=us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA62YTW7bMBCF76K1zfL/RwfoCbRKEBRuYaACEjuwnaBA4Lv3UUIjUggpshKQRRbW
+        0/DT05sZPX40t+PLa9M+fjTnn9fj5f1w68+nH7f+5di0Daec7qnec9Ex1lKKv4dm17z0p6b9aN4P
+        z2/4leKEq13zdupvV1zzvbnfd4tqLlA7/AnUtCPGxWpPu+b1cvzVv/a3obqCajlP6VNCuWHTDfrT
+        t98XlIybXN9Ol/6KE30eLQJAW+ZaKYii8qG5777g9dV1/pfPh1vjr6QW/5/Bbm8dUdJjKqIv8/QF
+        ZCvoQ82k6ID+XK2aPvRtSh/0hQ4ebyF9SNKWw35gqFw5fbkFfZWnP3frgvdV58/x+SZF3jeSCBU/
+        y2r6s2ojfTppF4KH2gCeS9jeloNXW4DXOfCWOD0dpyB0dAa8ZcSYWK0aPKpNhhpsT13wlhbSh+RA
+        XxpimSmnr7egbzsanieKfENrI990XCRtbwlbS990TKb0Qd8yPj3eQvqQBH3WMk6cEuX0zRb0XUd1
+        cJ6IvtbEiuk4Bd63mUg2jsxepGrro9jQKnHmEGp0UG0hfFQ8wBeOWMvK4dsN4Auag48BIGhgBfBd
+        Hj5da33XwaSJjuL7La8PHpQM+pihLFFaldN3q+mbPWWxm2Lri6rgGdWS/Xb1tLOg72Pfz3z/hrMy
+        78N+I33he1x50xV0C/q8o2FQx/Q5sRXeH+ikvWkUWTXsLMh7+OFeUgJ/kPTwRcsYobJ01PTXbQFf
+        5KyPnjuLityoiZJ4x1QqGLz119KHvk3pe/oy8EohfUgO9KUkRlfQ51vQlxn6yhE547VAH2rp4NEk
+        aIm+h9T1XDxcbORZ+LW5M0oCvsSihYFJF6a+v24L+CoDX8P6gZeWei5KkpmeiC3LrJp4Bv08/f+w
+        /rjjylZppD4+s9xLvjD4Urahz8IvJnHqSxIep4A+dtzkRGL5yi8MOLKOvTKfN1lly4XiuOeqVigi
+        ZIX11++5uLmJjxPDx+cwNk0QBfCxNCaDweLNXhs82KOTDxfyUtfTH/dc3TJFuP/CWGp9vYX1seem
+        Bx5F6CwqFlIfe26SDr4yzMen6thHtcmuQgmzTk1mKey5456rffBIU9Fzs3vu018rbcmpWhYAAA==
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 23 Jun 2020 14:11:35 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/1.3.0.1-enterprise-edition
+      X-CC-REGION:
+      - us
+      X-Correlation-ID:
+      - f2b9f0d3-bab0-4c6a-af81-7400ebd4465f
+      X-Kong-Proxy-Latency:
+      - '2'
+      X-Kong-Upstream-Latency:
+      - '23'
+      X-RateLimit-Limit-day:
+      - '1000'
+      X-RateLimit-Limit-hour:
+      - '100'
+      X-RateLimit-Remaining-day:
+      - '986'
+      X-RateLimit-Remaining-hour:
+      - '98'
+    status:
+      code: 200
+      message: OK
+version: 1
