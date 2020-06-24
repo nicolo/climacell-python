@@ -281,3 +281,35 @@ def test_forecast_daily_with_end_time():
             "lat": 40,
             "lon": 80
         }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/historical-climacell.yml')
+def test_historical_climacell():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    start_time = datetime(2020, 6, 24, 12, tzinfo=timezone.utc)
+    end_time = start_time + timedelta(hours=4)
+    response = api_client.historical_climacell(
+            lat='43.08', lon='-89.54', start_time=start_time, timestep=30,
+            end_time=end_time,
+            fields=['wind_gust', 'precipitation_type', 'sunset'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 9
+    assert data[0].observation_time == dateutil.parser.parse(
+            '2020-06-24T12:00:00.000Z')
+    measurements = data[0].measurements
+    assert measurements['precipitation_type'].value == 'none'
+    assert measurements['precipitation_type'].units is None
+    assert measurements['sunset'].value == '2020-06-25T01:41:48.098Z'
+    assert measurements['sunset'].units is None
+    assert measurements['wind_gust'].value == 7.5
+    assert measurements['wind_gust'].units == 'm/s'
+    assert response.json()[0] == {
+            'lat': 43.08,
+            'lon': -89.54,
+            'observation_time': {'value': '2020-06-24T12:00:00.000Z'},
+            'wind_gust': {'units': 'm/s', 'value': 7.5},
+            'precipitation_type': {'value': 'none'},
+            'sunset': {'value': '2020-06-25T01:41:48.098Z'}
+            }
