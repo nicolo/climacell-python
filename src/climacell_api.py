@@ -130,20 +130,21 @@ class ClimacellResponse:
 
     def data(self):
         raw_json = self.request_response.json()
-        if self.status_code == 200 and self.response_type == 'realtime':
-            return ObservationData(raw_json, self.fields)
-        elif self.status_code == 200:
-            observations = []
-            if self.response_type == 'daily_forecast':
-                data_class = DailyObservationData
-            else:
-                data_class = ObservationData
-            for o_json in raw_json:
-                observations.append(data_class(o_json, self.fields))
+        if self.status_code != 200:
+            return ErrorData(raw_json)
 
+        if self.response_type == 'realtime':
+            return ObservationData(raw_json, self.fields)
+        elif self.response_type == 'daily_forecast':
+            observations = []
+            for o_json in raw_json:
+                observations.append(DailyObservationData(o_json, self.fields))
             return observations
         else:
-            return ErrorData(raw_json)
+            observations = []
+            for o_json in raw_json:
+                observations.append(ObservationData(o_json, self.fields))
+            return observations
 
     def __getattr__(self, attrib):
         return getattr(self.request_response, attrib)
