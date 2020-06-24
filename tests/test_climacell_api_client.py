@@ -313,3 +313,29 @@ def test_historical_climacell():
             'precipitation_type': {'value': 'none'},
             'sunset': {'value': '2020-06-25T01:41:48.098Z'}
             }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/historical-station.yml')
+def test_historical_station():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    start_time = datetime(2020, 6, 23, 20, tzinfo=timezone.utc)
+    end_time = start_time + timedelta(hours=4)
+    response = api_client.historical_station(
+            lat='43.08', lon='-89.54', start_time=start_time,
+            end_time=end_time, fields=['temp', 'precipitation_type'])
+
+    assert response.status_code == 200
+    data = response.data()
+    assert len(data) == 12
+    assert data[0].observation_time == dateutil.parser.parse(
+            '2020-06-23T20:15:00.000Z')
+    measurements = data[0].measurements
+    assert measurements['precipitation_type'].value == 'none'
+    assert measurements['precipitation_type'].units is None
+    assert measurements['temp'].value == 22.4
+    assert measurements['temp'].units == 'C'
+    assert response.json()[0] == {
+            'observation_time': {'value': '2020-06-23T20:15:00.000Z'},
+            'temp': {'units': 'C', 'value': 22.4},
+            'precipitation_type': {'value': 'none'}
+            }

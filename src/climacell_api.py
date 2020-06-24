@@ -98,6 +98,25 @@ class ClimacellApiClient:
                 url_suffix="/weather/historical/climacell", params=params)
         return ClimacellResponse(request_response=response, fields=fields)
 
+    def historical_station(self, lat, lon, fields, start_time,
+                           end_time='now', units='si'):
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "start_time": start_time,
+            "end_time": start_time,
+            "unit_system": units,
+            "fields": ",".join(fields),
+            "apikey": self.key
+        }
+
+        if end_time is not None:
+            params["end_time"] = end_time
+
+        response = self._make_request(
+                url_suffix="/weather/historical/station", params=params)
+        return ClimacellResponse(request_response=response, fields=fields)
+
     def _make_request(self, url_suffix, params):
         return requests.get(self.BASE_URL + url_suffix, params=params)
 
