@@ -60,6 +60,8 @@ def test_nowcast():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 13
+    assert data[0].lat == 40
+    assert data[0].lon == 80
     assert data[0].observation_time == dateutil.parser.parse(
             '2020-06-22T20:47:00.196Z')
     measurements = data[0].measurements
@@ -89,6 +91,8 @@ def test_nowcast_with_end_time():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 3
+    assert data[0].lat == 40
+    assert data[0].lon == 80
     assert data[0].observation_time == dateutil.parser.parse(
             '2020-06-22T23:00:00.000Z')
     measurements = data[0].measurements
@@ -115,6 +119,8 @@ def test_forecast_hourly():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 109
+    assert data[0].lat == 43.08
+    assert data[0].lon == -89.54
     assert data[0].observation_time == dateutil.parser.parse(
             '2020-06-22T20:00:00.000Z')
     measurements = data[0].measurements
@@ -144,6 +150,8 @@ def test_forecast_hourly_with_end_time():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 2
+    assert data[0].lat == 40
+    assert data[0].lon == 80
     assert data[0].observation_time == dateutil.parser.parse(
             '2020-06-22T23:00:00.000Z')
     measurements = data[0].measurements
@@ -170,6 +178,8 @@ def test_forecast_daily():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 15
+    assert data[0].lat == 43.08
+    assert data[0].lon == -89.54
     assert data[0].observation_time == dateutil.parser.parse('2020-06-23')
     measurements = data[0].measurements
     assert measurements['temp']['min'].value == 52.25
@@ -233,6 +243,8 @@ def test_forecast_daily_with_end_time():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 4
+    assert data[0].lat == 40
+    assert data[0].lon == 80
     assert data[0].observation_time == dateutil.parser.parse('2020-06-23')
     measurements = data[0].measurements
     assert measurements['temp']['min'].value == 26.75
@@ -296,6 +308,8 @@ def test_historical_climacell():
     assert response.status_code == 200
     data = response.data()
     assert len(data) == 9
+    assert data[0].lat == 43.08
+    assert data[0].lon == -89.54
     assert data[0].observation_time == dateutil.parser.parse(
             '2020-06-24T12:00:00.000Z')
     measurements = data[0].measurements
@@ -339,3 +353,14 @@ def test_historical_station():
             'temp': {'units': 'C', 'value': 22.4},
             'precipitation_type': {'value': 'none'}
             }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/insights-fire-index.yml')
+def test_insights_fireindex():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    response = api_client.insights_fire_index(lat=43.08, lon=-89.54)
+
+    assert response.status_code == 200
+    data = response.data()
+    assert data.fire_index == 30.474195
+    assert response.json() == [{'fire_index': 30.474195}]

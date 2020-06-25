@@ -84,15 +84,12 @@ class ClimacellApiClient:
             "lat": lat,
             "lon": lon,
             "start_time": start_time,
-            "end_time": start_time,
+            "end_time": end_time,
             "timestep": timestep,
             "unit_system": units,
             "fields": ",".join(fields),
             "apikey": self.key
         }
-
-        if end_time is not None:
-            params["end_time"] = end_time
 
         response = self._make_request(
                 url_suffix="/weather/historical/climacell", params=params)
@@ -104,18 +101,27 @@ class ClimacellApiClient:
             "lat": lat,
             "lon": lon,
             "start_time": start_time,
-            "end_time": start_time,
+            "end_time": end_time,
             "unit_system": units,
             "fields": ",".join(fields),
             "apikey": self.key
         }
 
-        if end_time is not None:
-            params["end_time"] = end_time
-
         response = self._make_request(
                 url_suffix="/weather/historical/station", params=params)
         return ClimacellResponse(request_response=response, fields=fields)
+
+    def insights_fire_index(self, lat, lon):
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "apikey": self.key
+        }
+
+        response = self._make_request(
+                url_suffix="/insights/fire-index", params=params)
+        return ClimacellResponse(request_response=response, fields=[],
+                                 response_type='fire_index')
 
     def _make_request(self, url_suffix, params):
         return requests.get(self.BASE_URL + url_suffix, params=params)
@@ -135,6 +141,8 @@ class ClimacellResponse:
 
         if self.response_type == 'realtime':
             return ObservationData(raw_json, self.fields)
+        elif self.response_type == 'fire_index':
+            return FireIndexData(raw_json)
         elif self.response_type == 'daily_forecast':
             observations = []
             for o_json in raw_json:
@@ -213,6 +221,16 @@ class DailyObservationData(ObservationData):
                     value=field_json.get('value', None),
                     units=field_json.get('units', None))
         return m_dict
+
+
+class FireIndexData:
+
+    def __init__(self, raw_json):
+        self.raw_json = raw_json
+
+    @property
+    def fire_index(self):
+        return self.raw_json[0].get('fire_index', None)
 
 
 class Measurement:

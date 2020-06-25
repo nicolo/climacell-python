@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://api.climacell.co/v3/insights/fire-index?apikey=CLIMACELL_API_KEY&lat=43.08&lon=-89.54
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA4uuVkrLLEqNz8xLSa1QsjI20DMxNzG0NK2NBQAyv6tBGgAAAA==
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 25 Jun 2020 13:33:22 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/1.3.0.1-enterprise-edition
+      X-CC-REGION:
+      - us
+      X-Correlation-ID:
+      - 9697e3e9-044e-413a-908d-6a3049dd3834
+      X-Kong-Proxy-Latency:
+      - '16'
+      X-Kong-Upstream-Latency:
+      - '4131'
+      X-RateLimit-Limit-day:
+      - '1000'
+      X-RateLimit-Limit-hour:
+      - '100'
+      X-RateLimit-Remaining-day:
+      - '999'
+      X-RateLimit-Remaining-hour:
+      - '99'
+    status:
+      code: 200
+      message: OK
+version: 1
