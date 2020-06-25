@@ -353,3 +353,14 @@ def test_historical_station():
             'temp': {'units': 'C', 'value': 22.4},
             'precipitation_type': {'value': 'none'}
             }
+
+
+@my_vcr.use_cassette('tests/vcr_cassettes/insights-fire-index.yml')
+def test_insights_fireindex():
+    api_client = ClimacellApiClient(key=os.getenv('CLIMACELL_KEY'))
+    response = api_client.insights_fire_index(lat=43.08, lon=-89.54)
+
+    assert response.status_code == 200
+    data = response.data()
+    assert data.fire_index == 30.474195
+    assert response.json() == [{'fire_index': 30.474195}]
