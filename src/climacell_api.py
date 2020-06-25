@@ -84,15 +84,12 @@ class ClimacellApiClient:
             "lat": lat,
             "lon": lon,
             "start_time": start_time,
-            "end_time": start_time,
+            "end_time": end_time,
             "timestep": timestep,
             "unit_system": units,
             "fields": ",".join(fields),
             "apikey": self.key
         }
-
-        if end_time is not None:
-            params["end_time"] = end_time
 
         response = self._make_request(
                 url_suffix="/weather/historical/climacell", params=params)
@@ -104,14 +101,11 @@ class ClimacellApiClient:
             "lat": lat,
             "lon": lon,
             "start_time": start_time,
-            "end_time": start_time,
+            "end_time": end_time,
             "unit_system": units,
             "fields": ",".join(fields),
             "apikey": self.key
         }
-
-        if end_time is not None:
-            params["end_time"] = end_time
 
         response = self._make_request(
                 url_suffix="/weather/historical/station", params=params)
