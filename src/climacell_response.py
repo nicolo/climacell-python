@@ -2,6 +2,13 @@ import dateutil.parser
 
 
 class ClimacellResponse:
+    """
+    Wrapper around requests response object that includes a data() method that
+    returns all ClimaCell specific data for the endpoint.
+
+    Methods like json() and status_code are delegated to the requests response
+    object initialized with the ClimacellResponse object
+    """
 
     def __init__(self, request_response, fields, response_type='forecast'):
         self.request_response = request_response
