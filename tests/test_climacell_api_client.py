@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 import dateutil.parser
 import os
 import vcr
-from climacell_api import ClimacellApiClient
+from climacell_api.client import ClimacellApiClient
 
 my_vcr = vcr.VCR(filter_query_parameters=[('apikey', 'CLIMACELL_API_KEY')])
 
