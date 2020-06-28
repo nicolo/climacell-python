@@ -27,7 +27,7 @@ Getting started with the ClimaCell API is easy. Create a
 The `ClimacellApiClient` needs your Climacell key found in your dashboard. Pass this directly to the constructor
 
 ```python
-from climacell_api import ClimacellApiClient
+from climacell_api.client import ClimacellApiClient
 
 key = "XXXXXXXXXXXXXXXXX"
 client = ClimacellApiClient(key)

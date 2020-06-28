@@ -1,14 +1,14 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name="climacell-python",
-    version="0.0.1",
+    version="0.0.7",
     description="Python library to interface with the ClimaCell Weather API",
     py_modules=["climacell_api"],
-    package_dir={"": "src"},
+    packages=find_packages(include=['climacell_api'], exclude=['tests']),
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

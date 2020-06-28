@@ -1,5 +1,5 @@
 import requests
-from climacell_response import ClimacellResponse
+from climacell_api.climacell_response import ClimacellResponse
 
 
 class ClimacellApiClient:
